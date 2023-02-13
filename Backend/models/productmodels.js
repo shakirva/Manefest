@@ -1,72 +1,108 @@
 const mongoose = require("mongoose");
 
-const productSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "please enter product name"],
-  },
-  discription: {
-    type: String,
-    required: [true, "please enter product discription"],
-  },
-  price: {
-    type: Number,
-    required: [true, "please enter  product price"],
-    MaxLength: [8, "product price cannot exceed 8 characters"],
-  },
-  rating: {
-    type: Number,
-    default: 0,
-  },
-  images: [
-    {
-      public_id: {
-        type: String,
-        required: true,
-      },
-      url: {
-        type: String,
-        required: true,
-      },
+const orderSchema = new mongoose.Schema({
+  shippingInfo: {
+    address: {
+      type: String,
+      required: true,
     },
-  ],
-  category: {
-    type: String,
-    required: [true, "please select category for this product"],
+    city: {
+      type: String,
+      required: true,
+    },
+
+    state: {
+      type: String,
+      required: true,
+    },
+
+    country: {
+      type: String,
+      required: true,
+    },
+    pinCode: {
+      type: Number,
+      required: true,
+    },
+    phoneNo: {
+      type: Number,
+      required: true,
+    },
   },
-  stock: {
-    type: Number,
-    required: [false, "please enter product stock"],
-    MaxLength: [4, "product stock cannot exceed 4 characters"],
-    default: 1,
-  },
-  numOfReviews: {
-    type: Number,
-    default: 0,
-  },
-  reviews: [
+  orderItems: [
     {
       name: {
         type: String,
         required: true,
       },
-      rating: {
+      price: {
         type: Number,
         required: true,
       },
-      comment: {
+      quantity: {
+        type: Number,
+        required: true,
+      },
+      image: {
         type: String,
+        required: true,
+      },
+      product: {
+        type: mongoose.Schema.ObjectId,
+        ref: "Product",
         required: true,
       },
     },
   ],
   user: {
     type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  paymentInfo: {
+    id: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+    },
+  },
+  paidAt: {
+    type: Date,
+    required: true,
+  },
+  itemsPrice: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  taxPrice: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  shippingPrice: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  totalPrice: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  orderStatus: {
+    type: String,
+    required: true,
+    default: "Processing",
+  },
+  deliveredAt: Date,
   createdAt: {
     type: Date,
     default: Date.now,
   },
-  },
 });
 
-module.exports = mongoose.model("Product", productSchema);
+module.exports = mongoose.model("Order", orderSchema);
