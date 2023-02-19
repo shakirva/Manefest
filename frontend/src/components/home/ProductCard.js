@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 import ReactStars from 'react-stars'
 
 
-function Product({product}) {
+const ProductCard =({product}) => {
   
     const options = {
         size: 20,
-        value: 4,
+        value: product.ratings,
         edit: false,
         isHalf: true,
         activeColor: '#ffd700',
@@ -18,11 +18,11 @@ function Product({product}) {
     <Link className='productCard' to={product._id} >
         <img src={product.images[0].url} alt={product.name} />
         <p>{product.name}</p>
-        <ReactStars {...options} /> <span>(256 Reviews)</span>
-        <span>{product.price}</span>
+        <ReactStars {...options} /> <span>({product.numOfReviews}256 Reviews)</span>
+        <span>{`₹${product.price}`}</span>
         
         </Link>
   )
 }
 
-export default Product
+export default ProductCard
