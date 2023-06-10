@@ -7,6 +7,9 @@ import webfont from 'webfontloader';
 import React from 'react';
 import Home from './components/Home/home';
 import Loader from './components/layout/Loader/Loader';
+import ProductDetails from './components/Product/ProductDetails';
+import Products from './components/Product/Products';
+import Search from './components/Product/Search';
 
 
 
@@ -24,7 +27,10 @@ function App() {
     <Routes>
     <Header />
     <Route exact path="/" component={Home} />
-    <Route exact path="/sad" component={Loader} />
+    <Route exact path="/product/:id" component={ProductDetails} />
+    <Route exact path="/products" component={Products} />
+    <Route exact path="/search" component={Search} />
+    <Route exact path="/products/:keyword" component={Products} />
     <Footer />
     </Routes>
     

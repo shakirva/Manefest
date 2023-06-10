@@ -70,4 +70,235 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 
-https://stackoverflow.com/questions/43433380/socket-hang-up-when-using-axios-get-but-not-when-using-https-get
+PRODUCT DETAILS LE CODUKAL
+
+import React, { Fragment, useEffect } from 'react'
+import { Carousel } from 'react-material-ui-carousel'
+import "./ProductDetails.css"
+import { useSelector, useDispatch } from 'react-redux'
+import {getProductDetails} from '../../actions/productActions'
+
+
+
+const ProductDetails = ({match}) => {
+
+  const dispatch = useDispatch()
+  const { product,loading,error } = useSelector((state) => state.productDetails)
+  
+  useEffect(() => {
+    dispatch(getProductDetails(match.params.id))
+  }, [dispatch,match.params.id])
+
+  
+
+  return (
+   <Fragment>
+    <div className="product-details"> 
+    <div>
+      <Carousel>
+        {product.images && product.images.map((item, i) => (
+          <img
+          className='CarouselImage'
+          key={item.url}
+          src={item.url}
+          alt={`${i} Slide`}
+          />
+        ))}
+         </Carousel>
+    </div>
+    </div>
+    
+    </Fragment>
+  )
+}
+
+export default ProductDetails
+
+
+
+
+
+
+
+
+
+
+
+import React ,{Fragment,useEffect, useState} from 'react'
+import "./Products.css"
+import { useSelector,useDispatch } from 'react-redux'
+import { getProducts } from '../../actions/productActions'
+import Loader from '../layout/Loader/Loader'    
+import ProductCard from '../Home/ProductCard'
+import Pagination from "react-js-pagination";
+import { Typography, Slider } from "@material-ui/core";
+
+const Products = ({match}) => {
+    const dispatch = useDispatch();
+
+    const keyword = match.params.keyword;
+    const [currentPage, setCurrentPage] = useState(1);
+    const [price, setPrice] = useState([0, 25000]);
+    
+
+
+    const {products,loading,error,productsCount, resultPerPage} = useSelector(state => state.products);
+    const setCurrentPageNo = (e) => {
+        setCurrentPage(e);
+      };
+    const priceHandler = (e, newPrice) => {
+        setPrice(newPrice);
+        };
+
+        
+    
+    useEffect(() => {
+        
+        dispatch(getProducts(keyword, currentPage, price));
+    }, [dispatch, keyword, currentPage, price]);
+
+
+  return <Fragment> 
+        {loading ? <Loader /> : 
+        <Fragment>
+            <h1 className="productsHeading">Latest Products</h1>
+            <div className='products'>
+                {products.map(product => (
+                    <ProductCard key={product._id} product={product}  />
+                ))}
+            </div>
+
+            <div className="filterBox">
+            <Typography>Price</Typography>
+                <Slider
+                  value={price}
+                  onChange={priceHandler}
+                  valueLabelDisplay="auto"
+                  aria-labelledby="range-slider"
+                  min={0}
+                  max={50000}
+                />
+            </div>
+            
+            {
+                resultPerPage <= productsCount && (
+                    <div className="paginationBox">
+              <Pagination
+                activePage={currentPage}
+                itemsCountPerPage={resultPerPage}
+                totalItemsCount={productsCount}
+                onChange={setCurrentPageNo}
+                nextPageText="Next"
+                prevPageText="Prev"
+                firstPageText="1st"
+                lastPageText="Last"
+                itemClass="page-item"
+                linkClass="page-link"
+                activeClass="pageItemActive"
+                activeLinkClass="pageLinkActive"
+              />
+            </div>)
+            }
+          
+        </Fragment>
+        }
+    </Fragment>
+
+}
+
+
+export default Products 
+
+
+
+
+
+
+
+
+
+
+import React ,{Fragment,useEffect, useState} from 'react'
+import "./Products.css"
+import { useSelector,useDispatch } from 'react-redux'
+import { getProducts } from '../../actions/productActions'
+import Loader from '../layout/Loader/Loader'    
+import ProductCard from '../Home/ProductCard'
+import Pagination from "react-js-pagination";
+import { Typography, Slider } from "@material-ui/core";
+
+const Products = ({match}) => {
+    const dispatch = useDispatch();
+
+    const keyword = match.params.keyword;
+    const [currentPage, setCurrentPage] = useState(1);
+    const [price, setPrice] = useState([0, 25000]);
+    
+
+
+    const {products,loading,error,productsCount, resultPerPage} = useSelector(state => state.products);
+    const setCurrentPageNo = (e) => {
+        setCurrentPage(e);
+      };
+    const priceHandler = (e, newPrice) => {
+        setPrice(newPrice);
+        };
+
+        
+    
+    useEffect(() => {
+        
+        dispatch(getProducts(keyword, currentPage, price));
+    }, [dispatch, keyword, currentPage, price]);
+
+
+  return <Fragment> 
+        {loading ? <Loader /> : 
+        <Fragment>
+            <h1 className="productsHeading">Latest Products</h1>
+            <div className='products'>
+                {products.map(product => (
+                    <ProductCard key={product._id} product={product}  />
+                ))}
+            </div>
+
+            <div className="filterBox">
+            <Typography>Price</Typography>
+                <Slider
+                  value={price}
+                  onChange={priceHandler}
+                  valueLabelDisplay="auto"
+                  aria-labelledby="range-slider"
+                  min={0}
+                  max={50000}
+                />
+            </div>
+            
+            {
+                resultPerPage <= productsCount && (
+                    <div className="paginationBox">
+              <Pagination
+                activePage={currentPage}
+                itemsCountPerPage={resultPerPage}
+                totalItemsCount={productsCount}
+                onChange={setCurrentPageNo}
+                nextPageText="Next"
+                prevPageText="Prev"
+                firstPageText="1st"
+                lastPageText="Last"
+                itemClass="page-item"
+                linkClass="page-link"
+                activeClass="pageItemActive"
+                activeLinkClass="pageLinkActive"
+              />
+            </div>)
+            }
+          
+        </Fragment>
+        }
+    </Fragment>
+
+}
+
+
+export default Products 

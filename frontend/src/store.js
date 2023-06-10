@@ -4,13 +4,14 @@ import {
   applyMiddleware,
 } from "redux";
 import thunk from "redux-thunk";
-import {productreducers} from "./reducer/productreducer";
+import {productReducers,productDetailsReducer} from "./reducer/productReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 
 const reducer = combineReducers({
   // Add reducers here
-  products: productreducers,
+  products: productReducers,
+  productDetails: productDetailsReducer
 });
 
 const initialState = {};
