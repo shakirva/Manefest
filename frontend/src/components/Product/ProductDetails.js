@@ -4,11 +4,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import {getProductDetails} from '../../actions/productActions'
 import Carousel from 'react-material-ui-carousel'
 import Rating from '@material-ui/lab/Rating'
+import {  useParams } from 'react-router-dom';
 
 
-const ProductDetails = ({match}) => {
+
+const ProductDetails = () => {
 
   const dispatch = useDispatch()
+  const { id } = useParams();
+
   const {product,loading,error, } = useSelector((state) => state.productDetails)
   
   
@@ -20,8 +24,8 @@ const options = {
   };
   
   useEffect(() => {
-    dispatch(getProductDetails(match.params.id))
-  }, [dispatch,match.params.id])
+    dispatch(getProductDetails(id))
+  }, [dispatch, id])
 
   
 

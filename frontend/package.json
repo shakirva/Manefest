@@ -23,7 +23,7 @@
     "react-material-ui-carousel": "^3.4.2",
     "react-rating-stars-component": "^2.2.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
     "react-stars": "^2.2.5",
     "redux": "^4.2.1",
@@ -56,5 +56,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://192.168.0.117:5000"
-}
+  "proxy":"http://192.168.0.117:5000"
+} 
