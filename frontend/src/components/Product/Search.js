@@ -1,16 +1,19 @@
 import React, { useState, Fragment } from "react";
 import MetaData from "../layout/MetaData";
 import "./Search.css";
+import { useNavigate } from "react-router-dom";
 
-const Search = ({ history }) => {
+const Search = () => {
   const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
+
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
-      history.push(`/products/${keyword}`);
+      navigate(`/products/${keyword}`);
     } else {
-      history.push("/products");
+      navigate(`/products`);
     }
   };
 
