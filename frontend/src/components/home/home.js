@@ -3,7 +3,7 @@ import React, { Fragment, useEffect } from "react";
 import "./home.css";
 import ProductCard from "./ProductCard.js";
 import MetaData from "../layout/MetaData";
-import { clearErrors,getProducts } from "../../actions/productActions";
+import { clearErrors,getProduct} from "../../actions/productActions";
 import { useSelector,useDispatch } from "react-redux";
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
@@ -18,7 +18,7 @@ function Home () {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getProducts());
+    dispatch(getProduct());
   }, [dispatch, error, alert]);
 
   return (

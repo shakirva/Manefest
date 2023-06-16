@@ -1,28 +1,54 @@
-import {
-   createStore,
-  combineReducers,
-  applyMiddleware,
-} from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+// import { configureStore } from '@reduxjs/toolkit'
 import thunk from "redux-thunk";
-import {productReducers,productDetailsReducer} from "./reducer/productReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { userReducer } from "./reducer/userReducer";
-import { profileReducer } from "./reducer/userReducer";
-import { cartReducer } from "./reducer/cartReducer";
-import { forgotPasswordReducer } from "./reducer/userReducer";
 
+import {
+  newProductReducer,
+  newReviewReducer,
+  productDetailsReducer,
+  productReducer,
+  productReviewsReducer,
+  productsReducer,
+  reviewReducer,
+} from "./reducer/productReducer";
+
+import {
+  allUsersReducer,
+  forgotPasswordReducer,
+  profileReducer,
+  userDetailsReducer,
+  userReducer,
+} from "./reducer/userReducer";
+
+import { cartReducer } from "./reducer/cartReducer";
+import {
+  allOrdersReducer,
+  myOrdersReducer,
+  newOrderReducer,
+  orderDetailsReducer,
+  orderReducer,
+} from "./reducer/orderReducer";
 
 const reducer = combineReducers({
-  // Add reducers here
-  products: productReducers,
+  products: productsReducer,
   productDetails: productDetailsReducer,
-  user:userReducer,
+  user: userReducer,
   profile: profileReducer,
   forgotPassword: forgotPasswordReducer,
   cart: cartReducer,
-  
-
-
+  newOrder: newOrderReducer,
+  myOrders: myOrdersReducer,
+  orderDetails: orderDetailsReducer,
+  newReview: newReviewReducer,
+  newProduct: newProductReducer,
+  product: productReducer,
+  allOrders: allOrdersReducer,
+  order: orderReducer,
+  allUsers: allUsersReducer,
+  userDetails: userDetailsReducer,
+  productReviews: productReviewsReducer,
+  review: reviewReducer,
 });
 
 let initialState = {
@@ -37,9 +63,14 @@ let initialState = {
 };
 
 const middleware = [thunk];
+// const [state, dispatch] = useReducer(reducer, initialState); 
+// This hook function returns an array with 2 values.
+//  The first one is the state value, and the second value is the dispatch
+// function which is further used to trigger an action with the help of array destructuring.Note:
 const store = createStore(
   reducer,
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );
+
 export default store;

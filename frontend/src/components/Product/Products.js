@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "./Products.css";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, getProducts  } from "../../actions/productActions";
+import { clearErrors, getProduct } from "../../actions/productActions";
 import Loader from "../layout/Loader/Loader";
 import ProductCard from "../Home/ProductCard";
 import Pagination from "react-js-pagination";
@@ -44,7 +44,7 @@ const Products = () => {
     error,
     productsCount,
     resultPerPage,
-   
+    filteredProductsCount,
   } = useSelector((state) => state.products);
 
   const { keyword } = useParams();
@@ -69,6 +69,7 @@ const Products = () => {
     setPrice([0, 50000]);
 
   };
+  let count = filteredProductsCount;
 
   useEffect(() => {
     if (error) {
@@ -76,7 +77,7 @@ const Products = () => {
       dispatch(clearErrors());
     }
 
-    dispatch(getProducts(keyword, currentPage, price, category, ratings));
+    dispatch(getProduct(keyword, currentPage, price, category, ratings));
   }, [dispatch, keyword, currentPage, price, category, ratings, alert, error]);
 
   return (
@@ -89,7 +90,7 @@ const Products = () => {
           <h2 className="productsHeading">Products</h2>
 
           <Grid container >
-             {!keyword ?
+            { !keyword ?
               <Grid className="filterBox">
                 <Typography>Price</Typography>
                 <Slider
@@ -129,7 +130,7 @@ const Products = () => {
                 </fieldset>
               </Grid> :
               <></>
-             }
+            } 
             <Grid className="products">
               {products &&
                 products.map((product) => (

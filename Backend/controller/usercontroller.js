@@ -4,10 +4,16 @@ const User = require("../models/usermodels");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
-
+const cloudinary = require("cloudinary");
 
 // Create new user => /api/v1/register
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
+  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+    folder: "avatars",
+    width: 150,
+    crop: "scale",
+  });
+
   const { name, email, password } = req.body;
 
   const user = await User.create({
@@ -15,10 +21,11 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     email,
     password,
     avatar: {
-      public_id: "avatar",
-      url: "PROFIL FOTO URL",
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
     },
   });
+
   sendToken(user, 201, res);
 });
 
@@ -62,17 +69,15 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   }
   // Get reset token
   const resetToken = user.getResetPasswordToken();
- 
+
   await user.save({ validateBeforeSave: false });
   // Create reset password url
-  const resetUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/api/v1/password/reset/${resetToken}`;
+  const resetUrl = `${process.env.FRONTEND_URL}/api/v1/password/reset/${resetToken}`;
   const message = `Your password reset token is as follow:\n\n${resetUrl}\n\nIf you have not requested this email, then ignore it.`;
   try {
     await sendEmail({
       email: user.email,
-      subject: " ecomemrce Password Recovery",
+      subject: "ecommerce Password Recovery",
       message,
     });
     res.status(200).json({
@@ -94,8 +99,8 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
     .update(req.params.token)
     .digest("hex");
   const user = await User.findOne({
-     resetPasswordToken,
-     resetPasswordExpire: { $gt: Date.now() },
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
   });
   if (!user) {
     return next(
@@ -139,19 +144,41 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
 
 // Update user profile => /api/v1/me/update
 exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
+
   const newUserData = {
-    name: req.body.name,
-    email: req.body.email,
+      name: req.body.name,
+      email: req.body.email,
   };
-  // we will cloudinary later
+
+  if (req.body.avatar !== "") {
+      const user = await User.findById(req.user.id);
+
+      const imageId = user.avatar.public_id;
+
+      await cloudinary.v2.uploader.destroy(imageId);
+
+      const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+          folder: "avatars",
+          width: 150,
+          crop: "scale",
+      });
+
+      newUserData.avatar = {
+          public_id: myCloud.public_id,
+          url: myCloud.secure_url,
+      };
+  }
+
   const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
-    new: true,
-    runValidators: true,
-    useFindAndModify: false,
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
   });
+
   res.status(200).json({
-    success: true,
+      success: true,
   });
+
 });
 
 // GET ALL USERS => /api/v1/admin/users
@@ -167,13 +194,15 @@ exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
 exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) {
-    return next(new ErrorHander(`User does not found with id: ${req.params.id}`));
+    return next(
+      new ErrorHander(`User does not found with id: ${req.params.id}`)
+    );
   }
   res.status(200).json({
     success: true,
     user,
   });
-} );
+});
 
 // UPDATE USER PROFILE => /api/v1/admin/user/:id
 exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
@@ -193,19 +222,17 @@ exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-
 // DELETE USER => /api/v1/admin/user/:id
 exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) {
-    return next(new ErrorHander(`User does not found with id: ${req.params.id}`));
+    return next(
+      new ErrorHander(`User does not found with id: ${req.params.id}`)
+    );
   }
   // Remove avatar from cloudinary
   await user.remove();
   res.status(200).json({
     success: true,
   });
-}
-);
-
-
+});

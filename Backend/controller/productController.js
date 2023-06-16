@@ -4,15 +4,17 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const APIFeatures = require("../utils/apiFeatures");
 
 // Get all products => /api/v1/products
+
 (exports.getAllProducts = catchAsyncErrors(async (req, res) => {
-  const resultPerPage = 5;
-  const productCount = await product.countDocuments();
+  const resultPerPage = 8 ;
+  
+  const productsCount = await Product.countDocuments();
   const apiFeatures = new APIFeatures(Product.find(), req.query)
     .search()
     .filter()
     .pagination(resultPerPage);
   const products = await apiFeatures.query;
-  res.status(200).json({ success: true, products, productCount });
+  res.status(200).json({ success: true, products, productsCount, resultPerPage });
 })),
   // Create new product --admin => /api/v1/product/new
   (exports.createProduct = catchAsyncErrors(async (req, res) => {
@@ -24,7 +26,7 @@ const APIFeatures = require("../utils/apiFeatures");
       success: true,
       product,
       productCount,
-    });
+    }); 
   })),
   // Update product --admin => /api/v1/product/:id
   (exports.updateProdect = catchAsyncErrors(async (req, res, next) => {
@@ -56,7 +58,7 @@ const APIFeatures = require("../utils/apiFeatures");
     });
   }),
   // Get single product details => /api/v1/product/:id
-  (exports.getProductDetails = async (req, res, next) => {
+  (exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
     const product = await Product.findById(req.params.id);
     if (!product) {
       return next(new ErrorHander("Product not found", 404));
@@ -66,9 +68,10 @@ const APIFeatures = require("../utils/apiFeatures");
       success: true,
       product,
     });
-  });
+  }));
 
   // create new review and update the review
+  
 exports.createProductReview=catchAsyncErrors(async(req,res,next)=>{
   const {rating,comment,productId}=req.body;
   const review={

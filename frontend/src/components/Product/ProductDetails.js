@@ -6,8 +6,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
     clearErrors,
     getProductDetails,
-    
-} from "../../actions/productActions.js";
+    newReview,
+} from "../../actions/productActions";
 import ReviewCard from "./ReviewCard.js";
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
@@ -21,7 +21,7 @@ import {
     Button,
 } from "@mui/material";
 import Rating from '@mui/material/Rating';
-// import { NEW_REVIEW_RESET } from "../../constants/productConstants";
+import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 
 const ProductDetails = () => {
     const navigate = useNavigate();
@@ -33,7 +33,10 @@ const ProductDetails = () => {
         (state) => state.productDetails
     );
 
-    
+    const { success, error: reviewError } = useSelector(
+        (state) => state.newReview
+    );
+
     const options = {
         size: "large",
         value: product.ratings,
@@ -70,17 +73,17 @@ const ProductDetails = () => {
         open ? setOpen(false) : setOpen(true);
     };
 
-    // const reviewSubmitHandler = () => {
-    //     const myForm = new FormData();
+    const reviewSubmitHandler = () => {
+        const myForm = new FormData();
 
-    //     myForm.set("rating", rating);
-    //     myForm.set("comment", comment);
-    //     myForm.set("productId", id);
+        myForm.set("rating", rating);
+        myForm.set("comment", comment);
+        myForm.set("productId", id);
 
-    //     dispatch(newReview(myForm));
+        dispatch(newReview(myForm));
 
-    //     setOpen(false);
-    // };
+        setOpen(false);
+    };
 
     useEffect(() => {
         if (error) {
@@ -88,17 +91,17 @@ const ProductDetails = () => {
             dispatch(clearErrors());
         }
 
-        if ("") {
-            alert.error("");
+        if (reviewError) {
+            alert.error(reviewError);
             dispatch(clearErrors());
         }
 
-        if ("") {
+        if (success) {
             alert.success("Review Submitted Successfully");
-            dispatch({ type: "" });
+            dispatch({ type: NEW_REVIEW_RESET });
         }
         dispatch(getProductDetails(id));
-    }, [dispatch, id, error, alert]);
+    }, [dispatch, id, error, alert, reviewError, success]);
 
     return (
         <Fragment>
@@ -195,7 +198,7 @@ const ProductDetails = () => {
                             <Button onClick={submitReviewToggle} color="secondary">
                                 Cancel
                             </Button>
-                            <Button onClick={""} color="primary">
+                            <Button onClick={reviewSubmitHandler} color="primary">
                                 Submit
                             </Button>
                         </DialogActions>

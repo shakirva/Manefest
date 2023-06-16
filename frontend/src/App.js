@@ -28,8 +28,9 @@ import Payment from "./components/cart/Payment.js";
 import axios from 'axios';
 import ElementsLayout from './components/Route/ElementsLayout';
 import { loadStripe } from "@stripe/stripe-js";
-
-
+import OrderSuccess from "./components/cart/OrderSuccess.js";
+import OrderDetails from './components/Order/OrderDetails';
+import MyOrders  from './components/Order/MyOrder';
 
 
 
@@ -102,6 +103,15 @@ function App() {
               <Route path="/process/payment" element={<Payment />} />
             </Route>
           )}
+           <Route element={<ProtectedRoute />}>
+            <Route path='/success' element={<OrderSuccess />} />
+          </Route>
+          <Route element={<ProtectedRoute />}>
+            <Route path='/orders' element={<MyOrders />} />
+          </Route>
+          <Route element={<ProtectedRoute />}>
+            <Route path='/order/:id' element={<OrderDetails/>} />
+          </Route>
 
     </Routes>
         <Footer />
