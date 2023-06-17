@@ -2,10 +2,12 @@ const Product = require("../models/productmodels");
 const ErrorHander = require("../utils/errorHander");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const APIFeatures = require("../utils/apiFeatures");
+const cloudinary = require("cloudinary");
+ 
 
 // Get all products => /api/v1/products
 
-(exports.getAllProducts = catchAsyncErrors(async (req, res) => {
+exports.getAllProducts = catchAsyncErrors(async (req, res) => {
   const resultPerPage = 8 ;
   
   const productsCount = await Product.countDocuments();
@@ -15,37 +17,109 @@ const APIFeatures = require("../utils/apiFeatures");
     .pagination(resultPerPage);
   const products = await apiFeatures.query;
   res.status(200).json({ success: true, products, productsCount, resultPerPage });
-})),
-  // Create new product --admin => /api/v1/product/new
-  (exports.createProduct = catchAsyncErrors(async (req, res) => {
-    req.body.user = req.user.id;
+})
 
-    const product = await Product.create(req.body);
+// Get All Product (Admin)
+exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
+  const products = await Product.find();
 
-    res.status(201).json({
+  res.status(200).json({
+      success: true,
+      products,
+  });
+});
+ //Create Product --ADMIN
+exports.createProduct = catchAsyncErrors(async (req, res, next) => {
+
+  let images = [];
+
+  if (typeof req.body.images === "string" || typeof req.body.images === []) {
+      images.push(req.body.images);
+  } else {
+      images = req.body.images;
+  }
+
+  const imagesLinks = [];
+
+  for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(images[i], {
+          folder: "products",
+      });
+
+      imagesLinks.push({
+          public_id: result.public_id,
+          url: result.secure_url,
+      });
+  }
+
+  req.body.images = imagesLinks;
+  req.body.user = req.user.id;
+
+  const product = await Product.create(req.body);
+
+  res.status(201).json({
       success: true,
       product,
-      productCount,
-    }); 
-  })),
-  // Update product --admin => /api/v1/product/:id
-  (exports.updateProdect = catchAsyncErrors(async (req, res, next) => {
-    let product = await Product.findById(req.params.id);
-    if (!product) {
-      return next(new ErrorHander("product not found ", 404));
-     ;
+  });
+  // req.body.user = req.user.id;
+  // const product = await Product.create(req.body);
+
+  // res.status(201).json({
+  //     success: true,
+  //     product
+  // })
+});
+  // Update Product -- Admin
+
+exports.updateProdect = catchAsyncErrors(async (req, res, next) => {
+  let product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return next(new ErrorHander("Product not found", 404));
+  }
+
+  // Images Start Here
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  if (images !== undefined) {
+    // Deleting Images From Cloudinary
+    for (let i = 0; i < product.images.length; i++) {
+      await cloudinary.v2.uploader.destroy(product.images[i].public_id);
     }
 
-    product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-      useFindAndModify: false,
-    });
-    res.status(200).json({
-      success: true,
-      product,
-    });
-  })),
+    const imagesLinks = [];
+
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(images[i], {
+        folder: "products",
+      });
+
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+
+    req.body.images = imagesLinks;
+  }
+
+  product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+    product,
+  });
+});
   (exports.deleteProduct = async (req, res, next) => {
     const product = await Product.findById(req.params.id);
     if (!product) {
