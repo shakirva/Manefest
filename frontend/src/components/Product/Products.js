@@ -90,7 +90,7 @@ const Products = () => {
           <h2 className="productsHeading">Products</h2>
 
           <Grid container >
-            { !keyword ?
+           {!keyword ?
               <Grid className="filterBox">
                 <Typography>Price</Typography>
                 <Slider

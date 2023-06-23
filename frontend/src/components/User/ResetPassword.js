@@ -7,10 +7,15 @@ import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import LockIcon from "@material-ui/icons/Lock";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const ResetPassword = ({ history, match }) => {
+
+const ResetPassword = () => {
   const dispatch = useDispatch();
-  const alert = useAlert();
+  const alert = useAlert()
+  const {token} = useParams();
+  const navigate = useNavigate();
 
   const { error, success, loading } = useSelector(
     (state) => state.forgotPassword
@@ -27,7 +32,7 @@ const ResetPassword = ({ history, match }) => {
     myForm.set("password", password);
     myForm.set("confirmPassword", confirmPassword);
 
-    dispatch(resetPassword(match.params.token, myForm));
+    dispatch(resetPassword(token, myForm));
   };
 
   useEffect(() => {
@@ -39,9 +44,9 @@ const ResetPassword = ({ history, match }) => {
     if (success) {
       alert.success("Password Updated Successfully");
 
-      history.push("/login");
+       navigate("/login");
     }
-  }, [dispatch, error, alert, history, success]);
+  }, [dispatch, error, alert, navigate,   success]);
 
   return (
     <Fragment>

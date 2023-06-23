@@ -14,7 +14,8 @@ const dotenv = require("dotenv");
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json({ limit: "50mb" }))
+app.use(bodyParser.urlencoded({ limit: "500mb", extended: true, parameterLimit: 50000 }))
 app.use(fileUpload());
 
 // route imports

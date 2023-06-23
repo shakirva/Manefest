@@ -33,13 +33,16 @@ import OrderDetails from './components/Order/OrderDetails';
 import MyOrders  from './components/Order/MyOrder';
 import Dashboard from './components/Admin/Dashboard';
 import ProductList from './components/Admin/ProductList';
-import NewProduct from './components/Admin/NewProduct';
+import NewProduct from './components/Admin/newProduct';
 import UpdateProduct from './components/Admin/UpdateProduct';
 import OrderList from './components/Admin/OrderList';
 import ProcessOrder from './components/Admin/ProcessOrder';
 import UpdateUser from './components/Admin/UpdateUser';
 import ProductReviews from './components/Admin/ProductReviews';
 import UserList from './components/Admin/UserList';
+import Contact from './components/layout/Contact/Contact';
+import About from './components/layout/About/About';
+import NotFound from './components/layout/Not Found/NotFound';
 
 
 
@@ -65,7 +68,7 @@ function App() {
 
   }, []);
 
- // window.addEventListener("contextmenu", (e) => e.preventDefault());
+  window.addEventListener("contextmenu", (e) => e.preventDefault());
   return (
     <Suspense>
       <BrowserRouter>
@@ -74,15 +77,20 @@ function App() {
 
     <Routes>
           <Route path="/" element={<Home />} />
+          <Route exact path="/about" element={<About />} />
+          <Route exact path="/contact" element={<Contact />} />
+          <Route path="/products/:keyword" element={<Products />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route exact path="/products" element={<Products />} />
           <Route exact path="/search" element={<Search />} />
           <Route path="/products/:keyword" element={<Products />} />
           <Route exact path="/login" element={<LoginSignUp />} />
           <Route exact path="/cart" element={<Cart />} />
-          <Route exact path="/password/forgot" component={ForgotPassword} />
+          <Route exact path="/password/forgot" element={<ForgotPassword />} />
+          
 
-          <Route exact path="/password/reset/:token" component={ResetPassword} />
+
+          <Route exact path="/password/reset/:token" element={<ResetPassword />} />
 
 
           <Route element={<ProtectedRoute />}>
@@ -144,7 +152,11 @@ function App() {
           <Route path='/admin/reviews' element={<ProductReviews />} />
         </Route>
 
-          
+        <Route
+          element={
+            window.location.pathname === "/process/payment" ? null : NotFound
+          }
+        />
           
           
           

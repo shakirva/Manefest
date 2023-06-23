@@ -15,11 +15,13 @@ import {
   clearErrors,
 } from "../../actions/orderAction";
 import { DELETE_ORDER_RESET } from "../../constants/orderConstants";
-
-const OrderList = ({ history }) => {
+import { useNavigate } from "react-router-dom";
+ 
+const OrderList = ({ }) => {
   const dispatch = useDispatch();
 
   const alert = useAlert();
+  const navigate = useNavigate();
 
   const { error, orders } = useSelector((state) => state.allOrders);
 
@@ -42,12 +44,12 @@ const OrderList = ({ history }) => {
 
     if (isDeleted) {
       alert.success("Order Deleted Successfully");
-      history.push("/admin/orders");
+      navigate("/admin/orders");
       dispatch({ type: DELETE_ORDER_RESET });
     }
 
     dispatch(getAllOrders());
-  }, [dispatch, alert, error, deleteError, history, isDeleted]);
+  }, [dispatch, alert, error, deleteError,  isDeleted]);
 
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 300, flex: 1 },

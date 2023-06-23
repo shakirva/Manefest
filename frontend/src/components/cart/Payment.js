@@ -17,8 +17,9 @@ import "./Payment.css";
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlined';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
-// import { createOrder, clearErrors } from "../../actions/orderActions";
+import { createOrder, clearErrors } from "../../actions/orderAction";
 import { useNavigate } from "react-router-dom";
+
 
 
 const Payment = ({ }) => {
@@ -32,7 +33,7 @@ const Payment = ({ }) => {
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
-//   const { error } = useSelector((state) => state.newOrder);
+  const { error } = useSelector((state) => state.newOrder);
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
@@ -96,7 +97,7 @@ const Payment = ({ }) => {
             status: result.paymentIntent.status,
           };
 
-        //   dispatch(createOrder(order));
+          dispatch(createOrder(order));
 
           navigate("/success");
         } else {
@@ -110,11 +111,11 @@ const Payment = ({ }) => {
   };
 
   useEffect(() => {
-    if ("") {
-      alert.error("");
-    //   dispatch(clearErrors());
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
     }
-  }, [dispatch,  alert]);
+  }, [dispatch, error, alert]);
 
   return (
     <Fragment>

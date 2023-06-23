@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Sidebar from "./Sidebar.js";
 import "./Dashboard.css";
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Doughnut, Line } from "react-chartjs-2";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,6 +9,7 @@ import { getAdminProduct } from "../../actions/productActions.js";
 import { getAllOrders } from "../../actions/orderAction.js";
 import { getAllUsers } from "../../actions/userAction.js";
 import MetaData from "../layout/MetaData";
+import Chart from 'chart.js/auto';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const Dashboard = () => {
 
   products &&
     products.forEach((item) => {
-      if (item.Stock === 0) {
+      if (item.stock === 0) {
         outOfStock += 1;
       }
     });
@@ -94,7 +95,20 @@ const Dashboard = () => {
         </div>
 
         <div className="lineChart">
-          <Line data={lineState} />
+          <Line
+          data={lineState}
+          options={{
+            title:{
+              display:true,
+              text:'Average Rainfall per month',
+              fontSize:20
+            },
+            legend:{
+              display:true,
+              position:'right'
+            }
+          }}
+        />
         </div>
 
         <div className="doughnutChart">
@@ -104,5 +118,6 @@ const Dashboard = () => {
     </div>
   );
 };
+
 
 export default Dashboard;
