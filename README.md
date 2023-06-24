@@ -1,4 +1,4 @@
-Hi! My name is **Jatin Vaishnav**, I have created this basic mern stack ecommerce project for learning purpose .
+Hi! My name is **Muhammed Shakir Va**, I have created this basic mern stack ecommerce project for learning purpose .
 
 # Install Dependencies
 
@@ -27,4 +27,4 @@ _fill each filed with your info respectively_
 
 ## Author
 
-**Instagram** Click [Here](http://instagram.com/jatin_vaishnav__2003) **@vashakir**
+**Instagram** Click [Here]() **@vashakir**
