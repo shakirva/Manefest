@@ -30,6 +30,7 @@ import {
   DELETE_REVIEW_FAIL,
   CLEAR_ERRORS,
 } from "../constants/productConstants";
+import {BASE_URL} from "../../src/const"
 
 
 

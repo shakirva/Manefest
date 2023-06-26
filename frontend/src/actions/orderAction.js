@@ -19,6 +19,8 @@ import {
   ORDER_DETAILS_FAIL,
   CLEAR_ERRORS,
 } from "../constants/orderConstants";
+import {BASE_URL} from "../../src/const"
+
 
 
 import axios from "axios";
