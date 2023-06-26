@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import MetaData from "../layout/MetaData";
-import { Link , useParams} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import SideBar from "./Sidebar";
 import {
@@ -15,13 +15,12 @@ import AccountTreeIcon from "@material-ui/icons/AccountTree";
 import { Button } from "@material-ui/core";
 import { UPDATE_ORDER_RESET } from "../../constants/orderConstants";
 import "./processOrder.css";
+import { useParams } from "react-router-dom";
 
-const ProcessOrder = ({ history }) => {
+const ProcessOrder = ({  }) => {
   const { order, error, loading } = useSelector((state) => state.orderDetails);
   const { error: updateError, isUpdated } = useSelector((state) => state.order);
- 
-  const { id } = useParams();
-
+  const {id} = useParams();
   const updateOrderSubmitHandler = (e) => {
     e.preventDefault();
 

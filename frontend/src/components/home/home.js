@@ -37,7 +37,7 @@ function Home () {
                   </a>
                 </div>
       
-                <h2 className="homeheading">Featured Products</h2>
+                <h2 className="homeHeading">Featured Products</h2>
       
                 <div className="container" id="container">
                   {products &&
