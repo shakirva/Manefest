@@ -1,5 +1,15 @@
-{
-  "dependencies": {
+{ "name": "ecommerce",
+"version": "1.0.0",
+"description": "",
+"main": "backend/server.js",
+"scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start": "node backend/server.js",
+  "dev": "nodemon backend/server.js "
+},
+"author": "",
+"license": "ISC",
+"dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
     "cloudinary": "^1.37.1",
@@ -16,15 +26,7 @@
     "stripe": "^12.9.0",
     "validator": "^13.7.0"
   },
-  "name": "ecommerce",
-  "version": "1.0.0",
-  "main": "backend/server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js "
-  },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "engines": {
+    "node": ">=15 <19"
+  }
 }

@@ -1,3 +1,3 @@
-export const BASE_URL = "https://manefest.vercel.app/"
+export const BASE_URL = ""
 
 // Path: frontend\package.json
