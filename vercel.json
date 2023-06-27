@@ -3,14 +3,14 @@
     "name": "ecommerce",
     "builds": [
        {
-          "src": "backend/server.js", 
-          "use": "@vercel/node"
+          "src": "package.json", 
+          "use": "vercel-sapper"
        }
     ],
     "routes": [
        {
           "src": "/(.*)",
-          "dest": "backend/server.js"
+          "dest": "/app.js"
        }
     ]
  }

@@ -37,10 +37,11 @@ app.use("/api/v1", order);
 app.use("/api/v1", payment);
 
 
-app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 app.get("*", (req,res) => {
-  res.sendFile(path.resolve(__dirname, "../frontend/build/index.tml"));
+  res.send(
+    "Api is running on http://localhost:5000"
+  );
 });
 
 //  const corsOptions = {
