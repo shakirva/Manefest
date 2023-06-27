@@ -37,10 +37,10 @@ app.use("/api/v1", order);
 app.use("/api/v1", payment);
 
 
-// app.use(express.static(path.join(__dirname, "../frontend/build")));
+app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 app.get("*", (req,res) => {
-  res.send("Api is running");
+  res.sendFile(path.resolve(__dirname, "../frontend/build/index.tml"));
 });
 
 //  const corsOptions = {
