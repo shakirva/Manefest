@@ -37,22 +37,21 @@ app.use("/api/v1", order);
 app.use("/api/v1", payment);
 
 
+app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 app.get("*", (req,res) => {
-  res.send(
-    "Api is running on http://localhost:5000"
-  );
+  res.sendFile(path.resolve(__dirname, "../frontend/build/index.tml"));
 });
 
- const corsOptions = {
-   origin: '*',
-  credentials: true,
-  optionSuccessStatus: 200
- }
- app.use(cors(corsOptions))
- app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
- app.set('trust proxy', 1);
+// const corsOptions = {
+//   origin: '*',
+//   credentials: true,
+//   optionSuccessStatus: 200
+// }
+// app.use(cors(corsOptions))
+// app.use(bodyParser.json());
+// app.use(express.urlencoded({ extended: true }));
+// app.set('trust proxy', 1);
 
 
 //middleware for erros
