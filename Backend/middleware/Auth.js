@@ -1,4 +1,4 @@
-const ErrorHander=require('../utils/errorhander');
+const ErrorHander=require('../utils/errorhandler');
 const catchAsyncErrors=require('./catchAsyncErrors');
 const User=require('../models/usermodels');
 const jwt=require('jsonwebtoken');
