@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const errorMiddleware = require("../middleware/error");
+const errorMiddleware = require("./middleware/error");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 
