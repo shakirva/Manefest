@@ -1,4 +1,4 @@
-const ErrorHandler = require("../utils/errorhandler");
+const ErrorHandler = require("../utils/errorhandleer");
 const catchAsyncErrors = require("./catchAsyncErrors");
 const JWT = require("jsonwebtoken");
 const User = require("../models/userModel");
@@ -29,3 +29,5 @@ exports.authorizeRoles = (...roles) => {
         next();
     }
 }
+
+// /dkjkld
