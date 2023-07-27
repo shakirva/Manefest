@@ -4,8 +4,8 @@
 "main": "Backend/server.js",
 "scripts": {
   "test": "echo \"Error: no test specified\" && exit 1",
-  "start": "node ./backend/server.js",
-  "dev": "nodemon backend/server.js "
+  "start": "node Backend/server.js",
+  "dev": "nodemon Backend/server.js "
 },
 "author": "",
 "license": "ISC",
