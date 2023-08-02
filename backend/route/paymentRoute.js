@@ -3,7 +3,7 @@ const {processPayment,sendStripeApiKey} = require("../controller/paymentControll
 const router = express.Router();
 
 
-const { isAuthenticatedUser } = require("./backend/Middleware/auth");
+const { isAuthenticatedUser } = require("../Middleware/auth");
 
 
 router.route("/payment/process").post(isAuthenticatedUser, processPayment);
