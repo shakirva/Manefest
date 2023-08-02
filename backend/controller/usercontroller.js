@@ -1,8 +1,8 @@
-const ErrorHander = require("../utils/errorhandler");
-const catchAsyncErrors = require("../middleware/catchAsyncErrors");
-const User = require("../models/usermodels");
-const sendToken = require("../utils/jwtToken");
-const sendEmail = require("../utils/sendEmail");
+const ErrorHander = require("../utlis/errorhandler");
+const catchAsyncErrors = require("../Middleware/catchAsyncErrors");
+const User = require("../model/usermodels");
+const sendToken = require("../utlis/jwtToken");
+const sendEmail = require("../utlis/sendEmail");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary");
 
