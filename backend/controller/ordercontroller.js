@@ -1,10 +1,10 @@
 const ErrorHandler = require("../utlis/errorhandler")
-const catchAsyncErrors = require("../Middleware/catchAsyncErrors");
+const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ApiFetures = require("../utlis/apiFeatures");
-const Order = require("../model/ordermodels");
+const Order = require("../model/orderModels");
 
 
-const Product = require("../model/productmodels");
+const Product = require("../model/productModels");
 //Create new Order
 
 exports.newOrder = catchAsyncErrors(async (req, res, next) => {

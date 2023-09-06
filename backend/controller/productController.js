@@ -1,7 +1,7 @@
 const ErrorHandler = require("../utlis/errorhandler")
-const catchAsyncErrors = require("../Middleware/catchAsyncErrors");
-const ApiFetures = require("../utlis/apifeatures");
-const Product = require("../model/productmodels");
+const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const ApiFetures = require("../utlis/apiFeatures");
+const Product = require("../model/productModels");
 const cloudinary = require("cloudinary");
 
 
