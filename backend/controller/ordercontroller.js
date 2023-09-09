@@ -1,5 +1,5 @@
-const errorHandler = require("../middleware/errorHandler");
-const catchAsyncErrors = require("../backend/middleware/catchAsyncErrors");
+const errorHandler = require("../utils/errorHandler");
+const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const Apifeatures = require("../utils/apiFeatures");
 const Order = require("../model/orderModels");
 

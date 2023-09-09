@@ -7,8 +7,8 @@ import {MdSearch} from "react-icons/md";
 import {MdAddShoppingCart} from "react-icons/md";
 
 const options = {
-  burgerColorHover: "#eb4034",
-  logo,
+  burgerColorHover: "blue",
+  
   logoWidth: "20vmax",
   navColor1: "white",
   logoHoverSize: "10px",
@@ -47,7 +47,7 @@ const options = {
 };
 
 const Header = () => {
-  return     <ReactNavbar {...options} />
+  return   <><div className="img"> </div><ReactNavbar {...options} /></>
 
 };
 

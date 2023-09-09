@@ -1,5 +1,11 @@
+
+.img  {
+  background-image: url("../../../images/freepic-premium-assets.jpg");
+  
+}
+
 .menuBurgerItem{
-    color:aliceblue !important;
+    color:rgb(255, 255, 255) !important;
 }
 .speedDial {
     position: fixed;

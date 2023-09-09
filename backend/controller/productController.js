@@ -1,6 +1,6 @@
-const ErrorHandler = require("../utils/errorHandler")
-const catchAsyncErrors = require("../backend/middleware/catchAsyncErrors");
-const Product = require("../product/model/productModels");
+const ErrorHandler = require("../../Backend/utils/errorHandler")
+const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const Product = require("../../Backend/model/productModels");
 const ApiFetures = require("../utils/apiFeatures");
 const cloudinary = require("cloudinary");
 
@@ -11,7 +11,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
     let images = [];
 
-    if (typeof req.body.images === "string" || typeof req.body.images === []) {
+    if (typeof req.body.images === "string" && req.body.images !== "" ) {
         images.push(req.body.images);
     } else {
         images = req.body.images;
