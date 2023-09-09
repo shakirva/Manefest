@@ -1,5 +1,5 @@
 const ErrorHandler = require("../../Backend/utils/errorHandler")
-const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const catchAsyncErrors = require("../Middleware/catchAsyncErrors");
 const Product = require("../../Backend/model/productModels");
 const ApiFetures = require("../utils/apiFeatures");
 const cloudinary = require("cloudinary");

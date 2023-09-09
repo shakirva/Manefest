@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const errorMiddleware = require("../backend/middleware/error");
+const errorMiddleware = require("./Middleware/error");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 
@@ -11,7 +11,7 @@ const cors = require('cors');
 //Config 
 if (process.env.NODE_ENV !== "PRODUCTION") {
     require("dotenv").config({ path: "backend/config/config.env" });
-  }
+  } 
   
 
 
@@ -27,7 +27,7 @@ app.use(fileUpload());
 const product = require("../backend/route/productRoute");
 const user = require("../backend/route/userRoute");
 const order = require("../backend/route/orderRoute");
-const payment = require("./route/paymentRoute");
+const payment = require("../backend/route/paymentRoute");
 
 app.use(cors());
 

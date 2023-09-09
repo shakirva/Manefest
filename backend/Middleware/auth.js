@@ -1,4 +1,4 @@
-const ErrorHandler = require("../../Backend/utils/errorHandler");
+const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("./catchAsyncErrors");
 const JWT = require("jsonwebtoken");
 const User = require("../model/userModels");

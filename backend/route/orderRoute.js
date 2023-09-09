@@ -2,7 +2,7 @@ const express = require("express");
 const { newOrder, getSingleOrder, myOrders, getAllOrders, updateOrder, deleteOrder } = require("../../Backend/controller/ordercontroller");
 const router = express.Router();
 
-const { isAuthenticatedUser, authorizeRoles } = require('../middleware/auth');
+const { isAuthenticatedUser, authorizeRoles } = require('../Middleware/auth');
 
 
 router.route("/order/new").post(isAuthenticatedUser, newOrder);
