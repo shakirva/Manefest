@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const errorMiddleware = require("./Middleware/error");
+const errorMiddleware =require("../Backend/middleware/error")
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 
@@ -10,7 +10,7 @@ const cors = require('cors');
 
 //Config 
 if (process.env.NODE_ENV !== "PRODUCTION") {
-    require("dotenv").config({ path: "backend/config/config.env" });
+    require("dotenv").config({ path: "Backend/config/config.env" });
   } 
   
 
@@ -24,10 +24,10 @@ app.use(bodyParser.urlencoded({ limit: "500mb", extended: true, parameterLimit: 
 app.use(fileUpload());
 
 // route imports
-const product = require("../backend/route/productRoute");
-const user = require("../backend/route/userRoute");
-const order = require("../backend/route/orderRoute");
-const payment = require("../backend/route/paymentRoute");
+const product = require("../Backend/routes/productRoute");
+const user = require("../Backend/routes/userRoute");
+const order = require("../Backend/routes/orderRoute");
+const payment = require("../Backend/routes/paymentRoute");
 
 app.use(cors());
 

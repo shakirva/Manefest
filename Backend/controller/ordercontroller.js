@@ -1,5 +1,5 @@
 const errorHandler = require("../utils/errorHandler");
-const catchAsyncErrors = require("../Middleware/catchAsyncErrors");
+const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const Apifeatures = require("../utils/apiFeatures");
 const Order = require("../model/orderModels");
 

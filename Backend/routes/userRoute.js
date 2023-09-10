@@ -13,8 +13,8 @@ const {
   getUserDetails,
   updateUserRole,
   deleteUser,
-} = require("../../Backend/controller/usercontroller");
-const { isAuthenticatedUser, authorizeRoles } = require("../Middleware/auth");
+} = require("../../Backend/controller/userController");
+const { isAuthenticatedUser, authorizeRoles } = require("../../Backend/middleware/auth");
 router.route("/register").post(registerUser);
 router.route("/login").post(loginUser);
 router.route("/password/forgot").post(forgotPassword);
