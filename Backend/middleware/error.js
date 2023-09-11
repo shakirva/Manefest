@@ -24,14 +24,5 @@ module.exports = (err, req, res, next) => {
     }
 
     //JWT Expire Error
-    if (err.name === "TokenExpiredError") {
-        const message = `Json Web Token Is Expired , try again.`;
-        err = new ErrorHandler(message, 400);
-    }
-
-
-    res.status(err.statusCode).json({
-        success: true,
-        message: err.message,// we can also use .slack (try this and see what happening....)
-    });
+    
 };
