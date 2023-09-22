@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9002286f.css",
+    "main.js": "/static/js/main.95d9ec61.js",
+    "static/media/freepic-premium-assets.jpg": "/static/media/freepic-premium-assets.17a937ace5af2ffe7914.jpg",
+    "static/media/playstore.png": "/static/media/playstore.82b4831979e0ce7c733e.png",
+    "static/media/Appstore.png": "/static/media/Appstore.d0c5839937e3c36285f6.png",
+    "static/media/final background.webp": "/static/media/final background.e7dbf2f6b915adbf12d5.webp",
+    "index.html": "/index.html",
+    "main.9002286f.css.map": "/static/css/main.9002286f.css.map",
+    "main.95d9ec61.js.map": "/static/js/main.95d9ec61.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9002286f.css",
+    "static/js/main.95d9ec61.js"
+  ]
+}
